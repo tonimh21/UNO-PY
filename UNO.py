@@ -30,4 +30,31 @@ def CrearMazo():
     
     return mazo
 
-#mazoUno = CrearMazo()
+#Función para mezclar la baraja ya creada
+def mezclarBaraja(mazo):
+
+    #Bucle para sacar las cartas aleatoriamente y girarlas para mezclarlas aún más
+    for i in range(len(mazo)):
+        aleatorio=random.randint(0,107)
+        mazo[i], mazo[aleatorio] = mazo[aleatorio], mazo[i]
+        
+    return mazo
+
+#Función para crear los mazos a todos los jugadores
+def pintarCartas(numCartas):
+
+    cartas_pintadas = []
+
+    #Usamos 'pop' para que saque un valor aleatorio del mazo creado, y que a la vez lo elimine
+    for i in range(numCartas):
+        cartas_pintadas.append(mazoUno.pop(0))
+
+    return cartas_pintadas
+
+mazoUno = CrearMazo()
+mazoUno = mezclarBaraja(mazoUno)
+
+jugadores = []
+jugador1 = pintarCartas(7)
+jugador2 = pintarCartas(7)
+jugador3 = pintarCartas(7)
