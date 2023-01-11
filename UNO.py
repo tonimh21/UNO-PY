@@ -30,10 +30,14 @@ def CrearMazo():
     
     return mazo
 
+#Función para mezclar la baraja ya creada
 def mezclarBaraja(mazo):
+
+    #Bucle para sacar las cartas aleatoriamente y girarlas para mezclarlas aún más
     for i in range(len(mazo)):
         aleatorio=random.randint(0,107)
         mazo[i], mazo[aleatorio] = mazo[aleatorio], mazo[i]
+        
     return mazo
 
 mazoUno = CrearMazo()
