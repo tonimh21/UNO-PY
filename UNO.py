@@ -30,4 +30,11 @@ def CrearMazo():
     
     return mazo
 
-#mazoUno = CrearMazo()
+def mezclarBaraja(mazo):
+    for i in range(len(mazo)):
+        aleatorio=random.randint(0,107)
+        mazo[i], mazo[aleatorio] = mazo[aleatorio], mazo[i]
+    return mazo
+
+mazoUno = CrearMazo()
+mazoUno = mezclarBaraja(mazoUno)
