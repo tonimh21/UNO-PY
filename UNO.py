@@ -51,10 +51,24 @@ def pintarCartas(numCartas):
 
     return cartas_pintadas
 
+#Mostramos por pantalla los nombres de los jugadores y la baraja que le corresponde a cada uno
+def mano_del_jugador(jugador,ManoJugador):
+	
+	print("Jugador: {}".format(jugador+1))
+	print("Su mano: ")
+	print("-----------------------------------")
+	for carta in ManoJugador:
+		print(carta)
+	print("")
+
 mazoUno = CrearMazo()
 mazoUno = mezclarBaraja(mazoUno)
 
 jugadores = []
-jugador1 = pintarCartas(7)
-jugador2 = pintarCartas(7)
-jugador3 = pintarCartas(7)
+num_jugadores=int(input("Cuántos jugadores sois: "))
+for i in range(num_jugadores):
+    jugadores.append(pintarCartas(7))
+
+turno_jugador=0
+direccion_juego=1
+juego=True
