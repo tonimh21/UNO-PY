@@ -2,7 +2,8 @@
 
 #Importación de las librerias necesarias
 import random
-import colorama
+from colorama import init, Fore, Back, Style
+init()
 
 #Crear el mazo de UNO!
 def CrearMazo():
@@ -57,13 +58,27 @@ def robarCartas(numCartas):
 #Mostramos por pantalla los nombres de los jugadores y la baraja que le corresponde a cada uno
 def mano_del_jugador(jugador,ManoJugador):
     
-    print("Jugador: {}".format(jugador+1))
-    print("Su mano: ")
-    print("-----------------------------------")
+    print(Fore.WHITE+"Jugador: {}".format(jugador+1))
+    print(Fore.WHITE+"Su mano: ")
+    print(Fore.WHITE+"-----------------------------------")
     y = 1
+    
+    #Pintar con colores el mazo de los jugadores
     for carta in ManoJugador:
-        print("{}) {}".format(y,carta))
+        if "Rojo" in carta:
+            print(Fore.WHITE+"{})".format(y),end="")
+            print(Fore.RED+carta)
+        if "Verde" in carta:
+            print(Fore.WHITE+"{})".format(y),end="")
+            print(Fore.GREEN+carta)
+        if "Amarillo" in carta:
+            print(Fore.WHITE+"{})".format(y),end="")
+            print(Fore.YELLOW+carta)
+        if "Azul" in carta:
+            print(Fore.WHITE+"{})".format(y),end="")
+            print(Fore.BLUE+carta)
         y+=1
+    
     print("")
 
 #Verificamos si el jugador podrá o no jugar en el actual turno
@@ -103,30 +118,41 @@ color_actual = mesa_split[0]
 if color_actual != "CAMBIO DE COLOR":
     carta_num = mesa_split[1]
 else:
-    carta_num = "Any"
+    carta_num = "Cualquiera"
 
 #Implementación de las reglas del juego
 while juego:
 
     #Preparar las manos de los jugadores
     mano_del_jugador(turno_jugador,jugadores[turno_jugador])
-    print("Carta en la mesa: {} ".format(carta_en_mesa[-1]))
+
+    #Pintar en colores la carta que hay en la mesa
+    print(Fore.WHITE+"Carta en la mesa: ",end="")
+    if "Rojo" in carta_en_mesa[-1]:
+        print(Fore.RED+carta_en_mesa[-1])
+    elif "Verde" in carta_en_mesa[-1]:
+        print(Fore.GREEN+carta_en_mesa[-1])
+    elif "Azul" in carta_en_mesa[-1]:
+        print(Fore.BLUE+carta_en_mesa[-1])
+    elif "Amarillo" in carta_en_mesa[-1]:
+        print(Fore.YELLOW+carta_en_mesa[-1])
+
 
     #Llamar a la función 'poderTirar' para que los jugadores eligan que cartas usar
     if poderTirar(color_actual,carta_num,jugadores[turno_jugador]):
-        carta_elegida = int(input("¿Qué carta quieres elegir?: "))
+        carta_elegida = int(input(Fore.WHITE+"¿Qué carta quieres elegir?: "))
 
         #Pedir al jugador que ponga una carta
         while not poderTirar(color_actual,carta_num,[jugadores[turno_jugador][carta_elegida-1]]):
-            carta_elegida = int(input("No es una carta válida ¿Qué carta quieres elegir?: "))
+            carta_elegida = int(input(Fore.WHITE+"No es una carta válida ¿Qué carta quieres elegir?: "))
 
         #Informar al jugador de que carta hay en la mesa
-        print("Has puesto {}".format(jugadores[turno_jugador][carta_elegida-1]))
+        print(Fore.WHITE+"Has puesto {}".format(jugadores[turno_jugador][carta_elegida-1]))
         carta_en_mesa.append(jugadores[turno_jugador].pop(carta_elegida-1))
 
     #Si el jugador no tiene cartas válidas robará del mazo sobrante
     else:
-        print("No puedes jugar, tienes que robar una carta")
+        print(Fore.WHITE+"No puedes jugar, tienes que robar una carta")
         jugadores[turno_jugador].extend(robarCartas(1))
 
     
